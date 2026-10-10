@@ -1,37 +1,157 @@
 <!doctype html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KiotViet Toolkit</title>
-  </head>
-  <body>
-    <main>
-      <p id="preview" class="preview" aria-live="polite"></p>
-      <p class="caption">Cách số điện thoại hiển thị trên KiotViet</p>
 
-      <div class="row">
-        <label for="enabled" class="row-label">Định dạng số điện thoại</label>
-        <input id="enabled" class="switch" type="checkbox" role="switch" />
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KiotViet Toolkit</title>
+</head>
 
-      <div class="row">
-        <label for="showAll" class="row-label">
-          Hiện mọi số của khách
-          <span class="row-hint">Mỗi số một dòng trong ô Điện thoại</span>
-        </label>
-        <input id="showAll" class="switch" type="checkbox" role="switch" />
-      </div>
-
-      <fieldset id="separators">
-        <legend>Phân cách bằng</legend>
-        <div class="segmented">
-          <label><input type="radio" name="separator" value="space" /><span>Dấu cách</span></label>
-          <label><input type="radio" name="separator" value="dot" /><span>Dấu chấm</span></label>
-          <label><input type="radio" name="separator" value="dash" /><span>Gạch ngang</span></label>
+<body>
+  <!-- Header nhận diện thương hiệu & tối giản -->
+  <header class="app-header">
+    <div class="brand">
+      <img src="/icon/32.png" alt="KiotViet Toolkit" class="brand-icon" />
+      <div class="brand-info">
+        <div class="brand-title-wrap">
+          <h1 class="brand-name">KiotViet Toolkit</h1>
+          <span class="badge">v0.3.0</span>
         </div>
-      </fieldset>
-    </main>
-    <script type="module" src="./main.ts"></script>
-  </body>
+        <span class="brand-status" id="activeStatus">Đang sẵn sàng</span>
+      </div>
+    </div>
+    <a href="https://www.kiotviet.vn" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Mở KiotViet"
+      aria-label="Mở trang KiotViet">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+    </a>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="nav-tabs" role="tablist" aria-label="Nhóm tính năng">
+    <button type="button" class="tab-btn active" role="tab" id="tab-btn-display" aria-selected="true"
+      aria-controls="tab-display">
+      Hiển thị
+    </button>
+    <button type="button" class="tab-btn" role="tab" id="tab-btn-tools" aria-selected="false" aria-controls="tab-tools">
+      Tiện ích
+    </button>
+    <button type="button" class="tab-btn" role="tab" id="tab-btn-shortcuts" aria-selected="false"
+      aria-controls="tab-shortcuts">
+      Phím tắt
+    </button>
+  </nav>
+
+  <!-- Tab Contents -->
+  <main>
+    <!-- TAB 1: HIỂN THỊ -->
+    <section id="tab-display" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-display">
+      <!-- Nhóm: Số điện thoại -->
+      <div class="settings-group">
+        <div class="group-header">
+          <span class="group-title">Số điện thoại</span>
+        </div>
+
+        <div class="card">
+          <!-- Master toggle -->
+          <div class="row row-main">
+            <label for="enabled" class="row-label">
+              Định dạng phân cách
+              <span class="row-hint">Thêm dấu phân cách dễ đọc (0357 747 884)</span>
+            </label>
+            <input id="enabled" class="switch" type="checkbox" role="switch" />
+          </div>
+
+          <!-- Cụm tuỳ chọn con phụ thuộc vào master switch -->
+          <div id="phoneSubOptions" class="sub-options">
+            <fieldset id="separators" class="sub-fieldset">
+              <div class="fieldset-head">
+                <legend>Kiểu phân cách</legend>
+                <!-- Preview nhỏ gọn gắn trực tiếp với bộ chọn -->
+                <div class="preview-inline">
+                  <span id="preview" class="preview-text" aria-live="polite"></span>
+                </div>
+              </div>
+              <div class="segmented">
+                <label><input type="radio" name="separator" value="space" /><span>Dấu cách</span></label>
+                <label><input type="radio" name="separator" value="dot" /><span>Dấu chấm</span></label>
+                <label><input type="radio" name="separator" value="dash" /><span>Gạch ngang</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Tùy chọn hiện mọi số khách hàng -->
+          <div class="row row-border">
+            <label for="showAll" class="row-label">
+              Hiện mọi số của khách
+              <span class="row-hint">Hiện cả số chính & số phụ (mỗi số 1 dòng)</span>
+            </label>
+            <input id="showAll" class="switch" type="checkbox" role="switch" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PHÍM TẮT (Sắp ra mắt) -->
+    <section id="tab-shortcuts" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-shortcuts" hidden>
+      <div class="settings-group">
+        <div class="group-header">
+          <span class="group-title">Mở Popup</span>
+        </div>
+        <div class="card">
+          <div class="shortcut-row">
+            <div class="shortcut-info">
+              <span class="shortcut-label">Mở KiotViet Toolkit</span>
+              <span class="shortcut-hint">Kích hoạt nhanh từ bất kỳ tab nào</span>
+            </div>
+            <div class="shortcut-keys">
+              <kbd class="key">Ctrl</kbd>
+              <span class="key-sep">+</span>
+              <kbd class="key">Shift</kbd>
+              <span class="key-sep">+</span>
+              <kbd class="key">K</kbd>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shortcut-tip">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span>Tùy chỉnh phím tắt tại <a href="chrome://extensions/shortcuts" target="_blank"
+            class="tip-link">chrome://extensions/shortcuts</a></span>
+      </div>
+    </section>
+
+    <!-- TAB 3: TIỆN ÍCH NÂNG CAO (Sắp ra mắt) -->
+    <section id="tab-tools" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-tools" hidden>
+      <div class="placeholder-card">
+        <div class="placeholder-icon">⚡</div>
+        <h2 class="placeholder-title">Tiện ích quản trị</h2>
+        <p class="placeholder-desc">Sao chép nhanh dữ liệu, highlight cảnh báo, ...</p>
+        <span class="coming-soon-badge">Đang phát triển</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer tối giản -->
+  <footer class="app-footer">
+    <span class="footer-note">Dành riêng cho KiotViet</span>
+    <div class="footer-links">
+      <a href="https://github.com/thanhdc-dev/kiotviet-toolkit/issues" target="_blank" rel="noopener noreferrer"
+        class="footer-link">Góp ý</a>
+    </div>
+  </footer>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+
 </html>
