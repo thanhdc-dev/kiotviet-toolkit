@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Định dạng số điện thoại</title>
+  </head>
+  <body>
+    <main>
+      <p id="preview" class="preview" aria-live="polite"></p>
+      <p class="caption">Cách số điện thoại hiển thị trên KiotViet</p>
+
+      <div class="row">
+        <label for="enabled" class="row-label">Định dạng số điện thoại</label>
+        <input id="enabled" class="switch" type="checkbox" role="switch" />
+      </div>
+
+      <div class="row">
+        <label for="showAll" class="row-label">
+          Hiện mọi số của khách
+          <span class="row-hint">Mỗi số một dòng trong ô Điện thoại</span>
+        </label>
+        <input id="showAll" class="switch" type="checkbox" role="switch" />
+      </div>
+
+      <fieldset id="separators">
+        <legend>Phân cách bằng</legend>
+        <div class="segmented">
+          <label><input type="radio" name="separator" value="space" /><span>Dấu cách</span></label>
+          <label><input type="radio" name="separator" value="dot" /><span>Dấu chấm</span></label>
+          <label><input type="radio" name="separator" value="dash" /><span>Gạch ngang</span></label>
+        </div>
+      </fieldset>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
