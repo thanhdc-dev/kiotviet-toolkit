@@ -1,6 +1,6 @@
 {
-  "name": "kiotviet-phone-format",
-  "description": "Chrome extension: hiển thị số điện thoại có phân cách trên KiotViet",
+  "name": "kiotviet-toolkit",
+  "description": "Tiện ích mở rộng (Chrome Extension) đa năng hỗ trợ tối ưu trải nghiệm và thao tác trên KiotViet",
   "private": true,
   "version": "0.3.0",
   "type": "module",

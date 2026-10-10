@@ -2,9 +2,9 @@ import { defineConfig } from 'wxt';
 
 export default defineConfig({
   manifest: {
-    name: 'KiotViet – Định dạng số điện thoại',
+    name: 'KiotViet Toolkit',
     description:
-      'Hiển thị số điện thoại có phân cách (0357 747 884) trên mọi màn hình KiotViet để dễ đọc.',
+      'Bộ công cụ & tiện ích mở rộng đa năng hỗ trợ tối ưu hiển thị và thao tác trên KiotViet.',
     permissions: ['storage'],
   },
 });

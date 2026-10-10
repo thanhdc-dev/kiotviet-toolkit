@@ -1,6 +1,13 @@
-# KiotViet – Định dạng số điện thoại
+# KiotViet Toolkit
 
-Extension Chrome (Manifest V3, WXT + TypeScript) hiển thị số điện thoại có phân cách trên mọi màn hình `*.kiotviet.vn`:
+Tiện ích mở rộng Chrome đa năng (Manifest V3, WXT + TypeScript) giúp tối ưu giao diện, bổ trợ tính năng và nâng cao hiệu suất thao tác trên nền tảng quản lý bán hàng `*.kiotviet.vn`.
+
+---
+
+## 🚀 Các tính năng hiện tại
+
+### 1. Định dạng & Hiển thị số điện thoại thông minh
+Tự động thêm dấu phân cách cho số điện thoại trên mọi màn hình KiotViet giúp quan sát trực quan, hạn chế sai sót khi đọc hay đối soát:
 
 | Gốc | Hiển thị |
 |---|---|
@@ -9,10 +16,18 @@ Extension Chrome (Manifest V3, WXT + TypeScript) hiển thị số điện tho�
 | `02437477884` | `024 3747 7884` |
 | `02543747788` | `0254 374 7788` |
 
-Popup có hai công tắc và lựa chọn kiểu phân cách (dấu cách, dấu chấm, gạch ngang):
+- **Bật/tắt định dạng**: Hỗ trợ tuỳ chọn các kiểu phân cách linh hoạt (dấu cách, dấu chấm, gạch ngang).
+- **Hiện mọi số của khách**: Tự động trích xuất và hiển thị cả số chính lẫn số phụ của khách hàng ngay trên danh sách (mỗi số một dòng).
 
-- **Định dạng số điện thoại**: bật/tắt phân cách.
-- **Hiện mọi số của khách**: ô Điện thoại hiện cả số chính và số phụ, mỗi số một dòng (cỡ chữ 85%).
+---
+
+## 🔮 Định hướng phát triển (Toolkit đa năng)
+
+Dự án được định hướng phát triển thành bộ công cụ all-in-one cho KiotViet với các module dự kiến:
+- **Tối ưu trải nghiệm danh sách & dữ liệu**: Mở rộng trích xuất thông tin khách hàng, đối tác, đơn hàng nhanh.
+- **Phím tắt & Thao tác nhanh**: Thêm shortcut tiện lợi cho màn hình bán hàng (POS) và quản trị.
+- **Tùy biến hiển thị**: Cá nhân hóa giao diện, hỗ trợ highlight trạng thái đơn, tồn kho cảnh báo.
+- **Hỗ trợ công việc hàng ngày**: Tích hợp các tiện ích nhỏ phục vụ in ấn, xuất/sao chép nhanh dữ liệu.
 
 ## Chạy thử
 
