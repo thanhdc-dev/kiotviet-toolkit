@@ -3,7 +3,7 @@
   "description": "Tiện ích mở rộng (Chrome Extension) đa năng hỗ trợ tối ưu trải nghiệm và thao tác trên KiotViet",
   "author": "ThanhDC <dev.thanhdc@gmail.com>",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
