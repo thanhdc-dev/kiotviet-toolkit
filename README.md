@@ -29,16 +29,131 @@ Dự án được định hướng phát triển thành bộ công cụ all-in-o
 - **Tùy biến hiển thị**: Cá nhân hóa giao diện, hỗ trợ highlight trạng thái đơn, tồn kho cảnh báo.
 - **Hỗ trợ công việc hàng ngày**: Tích hợp các tiện ích nhỏ phục vụ in ấn, xuất/sao chép nhanh dữ liệu.
 
-## Chạy thử
+## 📦 Hướng dẫn cài đặt
+
+### Yêu cầu hệ thống
+
+| Yêu cầu | Phiên bản tối thiểu |
+|---|---|
+| Node.js | ≥ 18.0.0 |
+| npm | ≥ 9.0.0 |
+| Google Chrome | ≥ 88 (Manifest V3) |
+
+> **Kiểm tra phiên bản:** Chạy `node -v && npm -v` trong terminal để xác nhận.
+
+---
+
+### Cách 1: Cài đặt từ Chrome Web Store _(khuyên dùng)_
+
+1. Mở Chrome và truy cập [Chrome Web Store](https://chromewebstore.google.com/).
+2. Tìm kiếm **KiotViet Toolkit**.
+3. Nhấn **Thêm vào Chrome** → xác nhận **Thêm tiện ích**.
+4. Biểu tượng tiện ích xuất hiện trên thanh công cụ — sẵn sàng sử dụng!
+
+---
+
+### Cách 2: Tải file Release & cài thủ công _(không cần build)_
+
+> Phù hợp khi bạn không muốn cài Node.js hoặc build từ source.
+
+#### Bước 1 — Tải file Release
+
+1. Truy cập trang **[Releases](https://github.com/thanhdc-dev/kiotviet-toolkit/releases)** trên GitHub.
+2. Chọn phiên bản mới nhất (ví dụ: `v0.3.0`).
+3. Trong mục **Assets**, nhấn vào file **`kiotviet-toolkit-*.zip`** để tải về.
+
+   ![Trang GitHub Releases — tải file kiotviet-toolkit-*.zip trong mục Assets](docs/images/step1-github-releases.png)
+
+#### Bước 2 — Giải nén file ZIP
+
+- **Windows**: Chuột phải vào file `.zip` → **Extract All...** → chọn thư mục đích → **Extract**.
+- **macOS**: Double-click vào file `.zip` — tự động giải nén cùng thư mục.
+- **Linux**: Chạy lệnh `unzip kiotviet-toolkit-*.zip -d kiotviet-toolkit/`
+
+Sau khi giải nén sẽ có thư mục `kiotviet-toolkit/` (hoặc tương tự) chứa các file extension.
+
+#### Bước 3 — Mở trang quản lý Extension trên Chrome
+
+1. Mở **Google Chrome**.
+2. Nhập vào thanh địa chỉ: `chrome://extensions` rồi nhấn **Enter**.
+
+   > Hoặc vào **Menu (⋮)** → **More tools** → **Extensions**.
+
+   ![Trang chrome://extensions — danh sách tiện ích đã cài](docs/images/step3-chrome-extensions.png)
+
+#### Bước 4 — Bật Developer Mode
+
+Ở **góc trên bên phải** trang `chrome://extensions`, bật công tắc **Developer mode**.
+
+![Developer mode đang tắt — toggle ở góc trên phải](docs/images/step4-devmode-off.png)
+
+#### Bước 5 — Nạp extension vào Chrome
+
+1. Nhấn nút **Load unpacked** xuất hiện ở góc trên bên trái.
+2. Trong hộp thoại chọn thư mục, điều hướng đến thư mục vừa giải nén.
+3. Nhấn **Select Folder** (Windows) / **Open** (macOS).
+
+   ![Developer mode đã bật — nút Load unpacked xuất hiện góc trên trái](docs/images/step5-devmode-on.png)
+
+#### Bước 6 — Xác nhận cài đặt thành công
+
+- **KiotViet Toolkit** xuất hiện trong danh sách extension với trạng thái **Enabled** (xanh lá).
+- Biểu tượng 🛠 xuất hiện trên thanh công cụ Chrome.
+- Truy cập `*.kiotviet.vn` — extension hoạt động ngay!
+
+> [!TIP]
+> Sau khi cài, nếu có phiên bản mới: lặp lại **Bước 1–2**, vào `chrome://extensions` → tìm **KiotViet Toolkit** → nhấn **⟳ Update** (hoặc nhấn biểu tượng reload bên cạnh extension).
+
+---
+
+### Cách 3: Cài đặt & Build từ source code
+
+#### Bước 1 — Clone & cài dependencies
+
+```bash
+git clone https://github.com/thanhdc-dev/kiotviet-toolkit.git
+cd kiotviet-toolkit
+npm install
+```
+
+#### Bước 2 — Build extension
+
+```bash
+npm run build
+```
+
+Sau khi build thành công, thư mục `.output/chrome-mv3/` chứa extension đã đóng gói.
+
+#### Bước 3 — Nạp vào Chrome
+
+1. Mở Chrome, truy cập `chrome://extensions`.
+2. Bật **Developer mode** (góc trên bên phải).
+3. Nhấn **Load unpacked**.
+4. Chọn thư mục `.output/chrome-mv3/`.
+5. Extension xuất hiện trong danh sách — hoàn tất!
+
+---
+
+### Cách 4: Chạy môi trường phát triển (Dev mode)
 
 ```bash
 npm install
-npm run dev      # mở Chrome với extension, có HMR
+npm run dev      # mở Chrome với extension, có HMR (Hot Module Replacement)
 ```
 
-Hoặc build rồi nạp thủ công: `npm run build` → Chrome → `chrome://extensions` → bật **Developer mode** → **Load unpacked** → chọn `.output/chrome-mv3`.
+Chế độ dev tự động reload khi có thay đổi code — tiện lợi khi phát triển/test tính năng mới.
 
-Các lệnh khác: `npm test` (Vitest), `npm run compile` (kiểm tra kiểu), `npm run zip`.
+---
+
+### Các lệnh hữu ích
+
+| Lệnh | Mô tả |
+|---|---|
+| `npm run dev` | Chạy dev server, mở Chrome với HMR |
+| `npm run build` | Build production vào `.output/chrome-mv3/` |
+| `npm run zip` | Đóng gói extension thành file `.zip` để submit lên Web Store |
+| `npm run compile` | Kiểm tra kiểu TypeScript (không emit file) |
+| `npm test` | Chạy test suite với Vitest |
 
 ## Hiện mọi số của khách
 
