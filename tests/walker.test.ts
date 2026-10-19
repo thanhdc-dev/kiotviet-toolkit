@@ -89,4 +89,14 @@ describe('createPhoneFormatter', () => {
     await tick();
     expect(document.querySelector('#n')!.textContent).toBe('0357747884');
   });
+
+  it('định dạng số điện thoại kèm ghi chú và khôi phục khi tắt', () => {
+    document.body.innerHTML = '<span id="note"> 0984968450(Nguyệt) </span>';
+    formatter.start();
+    formatter.configure({ enabled: true, separator: 'space', showAllNumbers: true });
+    expect(document.querySelector('#note')!.textContent).toBe(' 0984 968 450 (Nguyệt) ');
+
+    formatter.configure({ enabled: false, separator: 'space', showAllNumbers: true });
+    expect(document.querySelector('#note')!.textContent).toBe(' 0984968450(Nguyệt) ');
+  });
 });

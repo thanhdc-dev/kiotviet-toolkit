@@ -19,6 +19,12 @@ const separators = document.querySelector<HTMLFieldSetElement>('#separators')!;
 const radios = [...document.querySelectorAll<HTMLInputElement>('input[name="separator"]')];
 const activeStatus = document.querySelector<HTMLElement>('#activeStatus');
 const phoneSubOptions = document.querySelector<HTMLElement>('#phoneSubOptions');
+const versionBadge = document.querySelector<HTMLElement>('.badge');
+
+if (versionBadge && typeof browser !== 'undefined' && browser.runtime?.getManifest) {
+  const version = browser.runtime.getManifest().version;
+  if (version) versionBadge.textContent = `v${version}`;
+}
 
 // Setup tabs
 const tabButtons = [...document.querySelectorAll<HTMLButtonElement>('.tab-btn')];

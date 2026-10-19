@@ -55,9 +55,30 @@ describe('formatPhone', () => {
     const once = formatPhone('0357747884')!;
     expect(formatPhone(once)).toBeNull();
   });
+
+  it('định dạng số điện thoại có ghi chú kèm theo', () => {
+    expect(formatPhone('0984968450(Nguyệt)')).toBe('0984 968 450 (Nguyệt)');
+    expect(formatPhone('0984968450 (Nguyệt)')).toBe('0984 968 450 (Nguyệt)');
+    expect(formatPhone('0984968450 (chị Lan)')).toBe('0984 968 450 (chị Lan)');
+    expect(formatPhone('0984968450 [Nguyệt]')).toBe('0984 968 450 [Nguyệt]');
+    expect(formatPhone('0984968450 - Nguyệt')).toBe('0984 968 450 - Nguyệt');
+    expect(formatPhone('0984968450-Nguyệt')).toBe('0984 968 450 - Nguyệt');
+    expect(formatPhone('0984968450: Nguyệt')).toBe('0984 968 450: Nguyệt');
+    expect(formatPhone('0984968450:Nguyệt')).toBe('0984 968 450: Nguyệt');
+    expect(formatPhone('0984968450 (gọi sau 17h)')).toBe('0984 968 450 (gọi sau 17h)');
+    expect(formatPhone('+84984968450(Nguyệt)')).toBe('+84 984 968 450 (Nguyệt)');
+    expect(formatPhone('02437477884(bàn HN)')).toBe('024 3747 7884 (bàn HN)');
+    expect(formatPhone('0984968450(Nguyệt)', 'dot')).toBe('0984.968.450 (Nguyệt)');
+    expect(formatPhone('0984968450(Nguyệt)', 'dash')).toBe('0984-968-450 (Nguyệt)');
+  });
+
+  it('không format lại kết quả có ghi chú đã format', () => {
+    const once = formatPhone('0984968450(Nguyệt)')!;
+    expect(formatPhone(once)).toBeNull();
+  });
 });
 
-import { extractPhones, samePhoneDigits } from '../lib/formatPhone';
+import { extractPhones, samePhoneDigits, splitPhoneAndNote } from '../lib/formatPhone';
 
 describe('extractPhones', () => {
   it('tách nhiều số theo , ; / | và xuống dòng', () => {
@@ -79,6 +100,17 @@ describe('extractPhones', () => {
   it('giữ nguyên phần không nhận diện được thay vì làm mất thông tin', () => {
     expect(extractPhones('0345678664,ext 12')).toEqual(['0345678664', 'ext 12']);
   });
+
+  it('tách các số có ghi chú và giữ nguyên ghi chú', () => {
+    expect(extractPhones('0345678664(chính),0987654334(phụ)')).toEqual([
+      '0345678664(chính)',
+      '0987654334(phụ)',
+    ]);
+    expect(extractPhones('0345.678.664 (chính); 0987 654 334 - phụ')).toEqual([
+      '0345678664(chính)',
+      '0987654334- phụ',
+    ]);
+  });
 });
 
 describe('samePhoneDigits', () => {
@@ -87,5 +119,31 @@ describe('samePhoneDigits', () => {
     expect(samePhoneDigits('0345-678-664', '0345.678.664')).toBe(true);
     expect(samePhoneDigits('0345678664', '0987654334')).toBe(false);
     expect(samePhoneDigits('', '')).toBe(false);
+  });
+
+  it('so sánh chính xác khi có ghi chú kể cả khi ghi chú có chứa chữ số', () => {
+    expect(samePhoneDigits('0984968450(Nguyệt)', '0984968450')).toBe(true);
+    expect(samePhoneDigits('0984 968 450 (Nguyệt)', '0984968450')).toBe(true);
+    expect(samePhoneDigits('0984968450 (gọi sau 17h)', '0984968450')).toBe(true);
+    expect(samePhoneDigits('0984968450 (gọi sau 17h)', '0984968450 (máy lẻ 102)')).toBe(true);
+  });
+});
+
+describe('splitPhoneAndNote', () => {
+  it('tách đúng số và ghi chú', () => {
+    expect(splitPhoneAndNote('0984968450(Nguyệt)')).toEqual({
+      prefix: '0',
+      digits: '984968450',
+      compactPhone: '0984968450',
+      hasInternalSeparators: false,
+      note: '(Nguyệt)',
+    });
+    expect(splitPhoneAndNote('0984 968 450 (chị Lan)')).toEqual({
+      prefix: '0',
+      digits: '984968450',
+      compactPhone: '0984968450',
+      hasInternalSeparators: true,
+      note: '(chị Lan)',
+    });
   });
 });

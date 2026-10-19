@@ -7,7 +7,7 @@
  * Không phụ thuộc selector của từng màn hình: chỉ gắn attribute khi số đang hiển thị
  * đúng là số chính trong model, nên nhận diện được ô điện thoại ở bất kỳ danh sách nào.
  */
-import { samePhoneDigits } from './formatPhone';
+import { samePhoneDigits, splitPhoneAndNote } from './formatPhone';
 import { PHONES_ATTR, SKIP_SELECTOR } from './shared';
 
 export { PHONES_ATTR };
@@ -26,11 +26,6 @@ export const SOURCES: PhoneSource[] = [
   // Hóa đơn, đặt hàng: thông tin khách nằm trong dataItem.Customer
   { item: 'dataItem', fields: ['Customer.ContactNumber', 'Customer.SubNumber'] },
 ];
-
-// Lọc nhanh trước khi đụng tới scope: chỉ gồm chữ số và ký tự phân cách, 9-13 chữ số.
-const PHONE_LIKE = /^\s*\+?[\d\s.-]+\s*$/;
-const MIN_DIGITS = 9;
-const MAX_DIGITS = 13;
 
 // Scope của AngularJS có thể chưa gắn vào ô ngay lúc DOM được tạo.
 const MAX_ATTEMPTS = 3;
@@ -66,9 +61,8 @@ function readPhones(el: Element, source: PhoneSource): string[] | null {
 }
 
 function looksLikePhone(text: string): boolean {
-  if (text.length > 24 || !PHONE_LIKE.test(text)) return false;
-  const digits = text.replace(/\D/g, '').length;
-  return digits >= MIN_DIGITS && digits <= MAX_DIGITS;
+  if (text.length > 64) return false;
+  return splitPhoneAndNote(text) !== null;
 }
 
 export function createScopeReader(sources: PhoneSource[] = SOURCES) {

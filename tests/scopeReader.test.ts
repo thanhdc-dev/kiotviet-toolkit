@@ -170,4 +170,23 @@ describe('createScopeReader', () => {
     expect(() => reader.start()).not.toThrow();
     expect(tr.children[0]!.hasAttribute(PHONES_ATTR)).toBe(false);
   });
+
+  it('nhận diện và ghi attribute khi số hiển thị trên ô có kèm ghi chú', () => {
+    const tr = row(customerRow, ['KH001', 'Nguyễn A', '0345678664(Nguyệt)']);
+    document.body.append(tr);
+    reader.start();
+    const phone = tr.children[2]!;
+    expect(phone.getAttribute(PHONES_ATTR)).toBe('0345678664,0987654334');
+  });
+
+  it('nhận diện và ghi attribute khi model có chứa số kèm ghi chú', () => {
+    const rowWithNote = {
+      dataItem: { ContactNumber: '0345678664(Nguyệt)', SubNumber: '0987654334 (chị Lan)' },
+    };
+    const tr = row(rowWithNote, ['KH001', 'Nguyễn A', '0345 678 664']);
+    document.body.append(tr);
+    reader.start();
+    const phone = tr.children[2]!;
+    expect(phone.getAttribute(PHONES_ATTR)).toBe('0345678664(Nguyệt),0987654334 (chị Lan)');
+  });
 });

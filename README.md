@@ -15,8 +15,11 @@ Tự động thêm dấu phân cách cho số điện thoại trên mọi màn h
 | `+84357747884` | `+84 357 747 884` |
 | `02437477884` | `024 3747 7884` |
 | `02543747788` | `0254 374 7788` |
+| `0984968450(Nguyệt)` | `0984 968 450 (Nguyệt)` |
+| `0984968450 - Nguyệt` | `0984 968 450 - Nguyệt` |
 
 - **Bật/tắt định dạng**: Hỗ trợ tuỳ chọn các kiểu phân cách linh hoạt (dấu cách, dấu chấm, gạch ngang).
+- **Hỗ trợ số kèm ghi chú**: Tự động bóc tách và định dạng phần số điện thoại chuẩn, chuẩn hóa khoảng cách và giữ nguyên vẹn phần ghi chú phía sau (ví dụ: `(Nguyệt)`, `[Lan]`, `- Nguyệt`, `: Lan`).
 - **Hiện mọi số của khách**: Tự động trích xuất và hiển thị cả số chính lẫn số phụ của khách hàng ngay trên danh sách (mỗi số một dòng).
 
 ---
@@ -186,8 +189,9 @@ console.table(hits);
 
 ## Quy tắc
 
-- Chỉ format chuỗi liền bắt đầu bằng `0`, `84` hoặc `+84` và đúng đầu số VN (di động `03/05/07/08/09`, bàn `02x`).
-- Chỉ đổi text node có nội dung **trọn vẹn** là một số điện thoại. Chuỗi như `SĐT: 0357747884` hoặc `HD0357747884` được giữ nguyên.
+- Chỉ format chuỗi bắt đầu bằng số điện thoại đúng đầu số VN (`03/05/07/08/09`, bàn `02x`, hoặc mã `+84`/`84`).
+- Hỗ trợ số điện thoại có ghi chú kèm theo bắt đầu bằng ngoặc `(...)`, `[...]` hoặc dấu phân cách `-`, `:`, `/`. Dãy số được định dạng chuẩn và phần ghi chú được giữ nguyên vẹn.
+- Chuỗi lẫn lộn không phải số hoặc có tiền tố lạ như `SĐT: 0357747884` hay `HD0357747884` được giữ nguyên.
 - Không đụng vào `input`, `textarea`, `select`, `contenteditable`.
 - Copy ra đúng như hiển thị (có phân cách).
 

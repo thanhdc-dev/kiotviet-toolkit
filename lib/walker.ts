@@ -18,9 +18,9 @@ interface Written {
   host: Element | null;
 }
 
-// "+84" + 10 số = 13 ký tự; "0" + 9 số = 10 ký tự. Lọc nhanh trước khi chạy regex.
+// "+84" + 10 số = 13 ký tự; "0" + 9 số = 10 ký tự. Có thể kèm ghi chú tối đa 64 ký tự.
 const MIN_LEN = 10;
-const MAX_LEN = 13;
+const MAX_LEN = 64;
 
 const MULTI_ATTR = 'data-kvpf-multi';
 const STYLE_ID = 'kvpf-style';

@@ -139,4 +139,20 @@ describe('hiển thị nhiều số trong một ô', () => {
     await tick();
     expect(td.textContent).toBe('0345-678-664\n0987-654-334');
   });
+
+  it('hiển thị nhiều số có kèm ghi chú cho từng số', () => {
+    const td = cell('0345678664', '0345678664(chính),0987654334 (phụ)');
+    document.body.append(td);
+    formatter.start();
+    formatter.configure(ON);
+    expect(td.textContent).toBe('0345 678 664 (chính)\n0987 654 334 (phụ)');
+  });
+
+  it('hiển thị nhiều số khi ô hiển thị ban đầu có kèm ghi chú', () => {
+    const td = cell('0345678664(chính)', '0345678664(chính),0987654334 (phụ)');
+    document.body.append(td);
+    formatter.start();
+    formatter.configure(ON);
+    expect(td.textContent).toBe('0345 678 664 (chính)\n0987 654 334 (phụ)');
+  });
 });
